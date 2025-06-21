@@ -1,0 +1,30 @@
+[
+  {
+    "id": 0,
+    "difficulty": "All"
+  },
+  {
+    "id": 1,
+    "difficulty": "Easy"
+  },
+  {
+    "id": 2,
+    "difficulty": "Medium"
+  },
+  {
+    "id": 3,
+    "difficulty": "Hard"
+  },
+  {
+    "id": 4,
+    "difficulty": "Elite"
+  },
+  {
+    "id": 5,
+    "difficulty": "Master"
+  },
+  {
+    "id": 6,
+    "difficulty": "Grandmaster"
+  }
+]

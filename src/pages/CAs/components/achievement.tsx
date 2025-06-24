@@ -1,3 +1,5 @@
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+
 export interface combatAchievement {
   id: number;
   name: string;
@@ -10,11 +12,10 @@ export interface combatAchievement {
   runescore: number;
 }
 
-
 interface achievementProps {
   achievement: combatAchievement;
   handleClick: (ach: combatAchievement) => void;
-  completed: boolean
+  completed: boolean;
 }
 
 const achievementStyles = {
@@ -28,7 +29,7 @@ const achievementStyles = {
   backgroundColor: "#333",
   color: "white",
   gap: "12px",
-  cursor: "pointer"
+  cursor: "pointer",
 };
 
 const checkedAchievementStyles = {
@@ -42,25 +43,38 @@ const checkedAchievementStyles = {
   backgroundColor: "#333",
   color: "white",
   gap: "12px",
-  cursor: "pointer"
+  cursor: "pointer",
 };
 
-
-
-const Achievement = ({ achievement , handleClick, completed}: achievementProps) => {
-
+const Achievement = ({
+  achievement,
+  handleClick,
+  completed,
+}: achievementProps) => {
   return (
-    <div style={!completed ? achievementStyles: checkedAchievementStyles} onClick={()=> handleClick(achievement)}>
-      <img
-        style={{ height: "48px", width: "48px" }}
-        src={`/images/Combat_Mastery_-_${achievement.tier}_achievement_icon.png`}
-      ></img>
-
-      <div style={{ display: "flex", flexDirection: "column", margin: "0px" }}>
-        <span>{achievement.name}</span>
-        <span>{achievement.description}</span>
-      </div>
-    </div>
+    <Card
+      className={
+        "w-[75%] h-18 p-1 justify-center cursor-pointer select-none " +
+        (completed ? "border-completed" : "border-muted-foreground")
+      }
+      onClick={() => handleClick(achievement)}
+    >
+      <CardContent>
+        <div className="flex items-center gap-4">
+          <div className="w-[48px] h-[48px] min-w-[48px]">
+            <img
+              src={`/images/Combat_Mastery_-_${achievement.tier}_achievement_icon.png`}
+            />
+          </div>
+          <div className="flex flex-col">
+            <span>{achievement.name}</span>
+            <span className="text-muted-foreground text-[14px]">
+              {achievement.description}
+            </span>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 

@@ -1,94 +1,40 @@
+import { Button } from "./ui/button";
+import { useNavigate } from "react-router";
+import { ModeToggle } from "./mode-toggle";
+export const Navbar = () => {
+  const navigate = useNavigate();
 
-import { useAuth } from "../context/AuthContext";
-
-const difficulties = [
-  { id: 0, difficulty: "All" },
-  { id: 1, difficulty: "Easy" },
-  { id: 2, difficulty: "Medium" },
-  { id: 3, difficulty: "Hard" },
-  { id: 4, difficulty: "Elite" },
-  { id: 5, difficulty: "Master" },
-  { id: 6, difficulty: "Grandmaster" },
-];
-
-interface NavbarProps {
-  currentDifficulty: string,
-  handleChange: (difficulty: string) => void;
-}
-
-
-export const Navbar = ({currentDifficulty, handleChange}: NavbarProps) => {
-  const { signInWithDiscord, signOut, user } = useAuth();
-
-
-
-
-  const displayName =
-    user?.user_metadata.full_name
+  const visibleRoutes = [
+    {
+      label: "Home",
+      path: "/",
+    },
+    {
+      label: "CA's",
+      path: "/ca",
+    },
+    {
+      label: "Reaper Crew",
+      path: "/reaper",
+    },
+  ];
 
   return (
-    <div className="navbar">
-      <div className="navbar-title">Combat Achievements</div>
-
-      <div className="navbar-links">
-     
-          <div className="difficulty-wrapper" id="difficulty-filter">
-            {difficulties.map((diff) => (
-              <span
-                key={diff.id}
-                className={`difficulty-btn ${currentDifficulty === diff.difficulty.toLowerCase() ? "active" : ""}`}
-                data-difficulty={diff.difficulty.toLowerCase()}
-                onClick={() => handleChange(diff.difficulty)}
-              >
-                {diff.difficulty}
-              </span>
-            ))}
+    <nav className="flex justify-end items-center">
+      <ul className="flex space-x-4">
+        {visibleRoutes.map((route) => (
+          <div key={route.path}>
+            <Button
+              variant="ghost"
+              onClick={() => navigate(route.path)}
+              className="text-foreground hover:text-primary-200 transition-colors"
+            >
+              {route.label}
+            </Button>
           </div>
-
-         
-         
-            
-       
-
-        <div className="right-buttons">
-          <button id="share-btn" >
-            <img src="src/assets/images/link.png" className="icon-img link-icon" />
-            <img
-              src="src/assets/images/tick.png"
-              className="icon-img check-icon"
-            />
-          </button>
-
-          <button id="reset-btn" >
-            Reset
-          </button>
-
-          <div className="auth-block">
-            {user ? (
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                {user.user_metadata.avatar_url && (
-                  <img
-                    src={user.user_metadata.avatar_url}
-                    alt="avatar"
-                    style={{
-                      width: "32px",
-                      height: "32px",
-                      borderRadius: "50%",
-                      objectFit: "cover",
-                    }}
-                  />
-                )}
-                <span>{displayName}</span>
-                <button onClick={signOut}>Sign Out</button>
-              </div>
-            ) : (
-              <button onClick={signInWithDiscord}>Sign in</button>
-            )}
-          </div>
-        </div>
-      </div>
-      </div>
+        ))}
+        <ModeToggle />
+      </ul>
+    </nav>
   );
 };
-
-export default Navbar;

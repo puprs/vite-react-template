@@ -1,9 +1,14 @@
-import achievements from "../../resources/combatAchievements.json"
+import achievements from "../../resources/combatAchievements.json";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import Navbar from "../../components/navbar";
-import { establishRecord, loadAchievements, setAchievements } from "../../hooks/achievementSynx";
+import Navbar from "../../components/navbar.old";
+import {
+  establishRecord,
+  loadAchievements,
+  setAchievements,
+} from "../../hooks/achievementSynx";
 import Achievement, { combatAchievement } from "./components/achievement";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export const CA = () => {
   const { user } = useAuth();
@@ -13,7 +18,7 @@ export const CA = () => {
   const [difficulty, setDifficulty] = useState<string>("All");
 
   useEffect(() => {
-    establishRecord(user?.id, user?.user_metadata.name)
+    establishRecord(user?.id, user?.user_metadata.name);
     const fetchData = async () => {
       // If user & Nothing in Local Storage - Load in DB
       if (user && storedAch === "") {
@@ -57,53 +62,30 @@ export const CA = () => {
     updateChecked(achArr.toString());
   };
 
-  const bodyStyle = {
-    backgroundColor: "#111",
-    margin: "0",
-    display: "flex",
-    flexDirection: "column" as const,
-    minHeight: "100vh",
-    paddingTop: "75px",
-  };
-
-  const mainLayoutStyle = {
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "center",
-    gap: "40px",
-    padding: "40px",
-  };
-
-  const achievementGridStyle = {
-    flex: "1",
-    justifyContent: "center",
-    alignItems: "flex-start",
-    viewWidth: "100%",
-  };
   return (
-    <div style={bodyStyle}>
-      <Navbar
-        currentDifficulty={difficulty}
-        handleChange={(diff) => updateDifficulty(diff)}
-      />
-      <div style={mainLayoutStyle}>
-        {/*sidebar in here*/}
+    <div className="flex flex-col w-full">
+      <div className="grid grid-cols-6 gap-4 w-full h-[calc(100vh-210px)] flex-1">
+        <div className="col-span-1 text-center">Boss List</div>
 
-        <div style={achievementGridStyle}>
-          {achievements.map((achievement) => {
-            if (achievement.tier === difficulty || difficulty === "All") {
-              return (
-                <Achievement
-                  key={achievement.id}
-                  achievement={achievement}
-                  handleClick={() => handleAchievementToggle(achievement)}
-                  completed={checked.includes(achievement.id.toString())}
-                />
-              );
-            }
-          })}
+        <div className="col-span-4 flex flex-col w-full h-full items-center overflow-hidden">
+          <ScrollArea className="w-full h-full overflow-y-auto px-4">
+            <div className="flex flex-col w-full items-center gap-4">
+              {achievements.map((achievement) =>
+                achievement.tier === difficulty || difficulty === "All" ? (
+                  <Achievement
+                    key={achievement.id}
+                    achievement={achievement}
+                    handleClick={() => handleAchievementToggle(achievement)}
+                    completed={checked.includes(achievement.id.toString())}
+                  />
+                ) : null
+              )}
+            </div>
+          </ScrollArea>
         </div>
+
+        <div className="col-span-1 text-center">Stats</div>
       </div>
     </div>
   );
-}
+};

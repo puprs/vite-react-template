@@ -3,7 +3,7 @@ import { loadOthersAchievements } from "../../hooks/achievementSynx";
 import { useParams } from "react-router";
 import achievements from "../../resources/combatAchievements.json"
 import Achievement from "./components/achievement";
-import Navbar from "../../components/navbar";
+import Navbar from "../../components/navbar.old";
 
 export const ReadOnlyCA = () => {
   const [checked, setChecked] = useState<string>("");

@@ -54,7 +54,7 @@ const Achievement = ({
   return (
     <Card
       className={
-        "w-[75%] h-18 p-1 justify-center cursor-pointer select-none " +
+        "w-full h-18 p-1 justify-center cursor-pointer select-none " +
         (completed ? "border-completed" : "border-muted-foreground")
       }
       onClick={() => handleClick(achievement)}
@@ -68,7 +68,7 @@ const Achievement = ({
           </div>
           <div className="flex flex-col">
             <span>{achievement.name}</span>
-            <span className="text-muted-foreground text-[14px]">
+            <span className="text-muted-foreground text-[14px] line-clamp-1">
               {achievement.description}
             </span>
           </div>

@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
 import { Toaster } from "sonner";
 import { Navbar } from "./navbar";
-import { ScrollArea } from "./ui/scroll-area";
 
 interface ParentDivProps {
     children: ReactNode;
@@ -14,8 +13,8 @@ const PageLayout: React.FC<ParentDivProps> = ({ children }) => {
         <Navbar />
       </header>
 
-      <main className="flex-grow overflow-auto">
-        <ScrollArea className="h-[calc(100vh-36px)]">{children}</ScrollArea>
+      <main className="flex-grow">
+        {children}
         <Toaster />
       </main>
     </div>

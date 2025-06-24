@@ -63,28 +63,24 @@ export const CA = () => {
   };
 
   return (
-    <div className="flex flex-col w-full">
-      <div className="grid grid-cols-6 gap-4 w-full h-[calc(100vh-210px)] flex-1">
-        <div className="col-span-1 text-center">Boss List</div>
-
-        <div className="col-span-4 flex flex-col w-full h-full items-center overflow-hidden">
-          <ScrollArea className="w-full h-full overflow-y-auto px-4">
-            <div className="flex flex-col w-full items-center gap-4">
-              {achievements.map((achievement) =>
-                achievement.tier === difficulty || difficulty === "All" ? (
-                  <Achievement
-                    key={achievement.id}
-                    achievement={achievement}
-                    handleClick={() => handleAchievementToggle(achievement)}
-                    completed={checked.includes(achievement.id.toString())}
-                  />
-                ) : null
-              )}
-            </div>
-          </ScrollArea>
-        </div>
-
-        <div className="col-span-1 text-center">Stats</div>
+    <div className="flex flex-col w-full h-[calc(100vh-53px)]">
+      <div className="grid grid-cols-6 gap-4 w-full h-full">
+        <div className="col-span-1 text-center p-4">Boss List</div>
+        <ScrollArea className="col-span-4 h-[calc(100vh-53px)] px-4">
+          <div className="flex flex-col w-full items-center gap-4 py-4">
+            {achievements.map((achievement) =>
+              achievement.tier === difficulty || difficulty === "All" ? (
+                <Achievement
+                  key={achievement.id}
+                  achievement={achievement}
+                  handleClick={() => handleAchievementToggle(achievement)}
+                  completed={checked.includes(achievement.id.toString())}
+                />
+              ) : null
+            )}
+          </div>
+        </ScrollArea>
+        <div className="col-span-1 text-center p-4">Stats</div>
       </div>
     </div>
   );
